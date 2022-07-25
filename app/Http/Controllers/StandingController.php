@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class StandingController extends Controller
 {
@@ -15,6 +16,6 @@ class StandingController extends Controller
     {
         // Get standing data from the database
 
-        return view('standing', compact('standing'));
+        return Inertia::render('Standings');
     }
 }

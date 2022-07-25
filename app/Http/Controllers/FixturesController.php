@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class FixturesController extends Controller
 {
@@ -14,7 +15,10 @@ class FixturesController extends Controller
     public function index(Request $request)
     {
         // Get fixture data from the database
+        $fixture = $request->simulation;
 
-        return view('fixtures', compact('fixtures'));
+        return Inertia::render('Fixtures', [
+            'fixture' => $fixture,
+        ]);
     }
 }
