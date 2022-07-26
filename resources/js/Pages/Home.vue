@@ -19,7 +19,7 @@
         </div>
         <div class="mt-6">
             <form @submit.prevent="submit">
-                <Button color="blue" key="blue" type="submit" :isLoading="form.processing">
+                <Button color="blue" key="generateFixture" type="submit" :isLoading="form.processing">
                     Generate fixtures
                 </Button>
             </form>
@@ -31,29 +31,6 @@
 import { useForm } from "@inertiajs/inertia-vue3";
 import Button from "../Shared/Button";
 import TeamName from "../Shared/TeamName";
-
-const teams = [
-    {
-        name: 'Liverpool',
-        handle: 'liverpool',
-        imageUrl: 'https://resources.premierleague.com/premierleague/badges/25/t14.png',
-    },
-    {
-        name: 'Manchester City',
-        handle: 'manchester-city',
-        imageUrl: 'https://resources.premierleague.com/premierleague/badges/25/t43.png',
-    },
-    {
-        name: 'Chelsea',
-        handle: 'chelsea',
-        imageUrl: 'https://resources.premierleague.com/premierleague/badges/25/t8.png',
-    },
-    {
-        name: 'Arsenal',
-        handle: 'arsenal',
-        imageUrl: 'https://resources.premierleague.com/premierleague/badges/25/t3.png',
-    },
-];
 
 let form = useForm();
 let submit = () => {

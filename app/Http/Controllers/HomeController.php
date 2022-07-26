@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Inertia\Inertia;
+use App\Actions\Fixture\GenerateNewFixtureAction;
+use App\Actions\Simulation\CreateNewSimulation;
+use App\Models\Team;
 
 class HomeController extends Controller
 {
@@ -13,7 +16,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Home');
+        $teams = Team::all();
+
+        return Inertia::render('Home', compact('teams'));
     }
 
     /**
@@ -23,13 +28,14 @@ class HomeController extends Controller
      */
     public function generateFixtures()
     {
-        // Generate fixtures for the current simulation
-        // TODO: Implement
-        sleep(5);
-        $random = rand(1, 100);
+        // Create a new simulation.
+        $simulation = CreateNewSimulation::run();
+
+        // Generate the fixtures.
+        GenerateNewFixtureAction::run($simulation);
 
         return redirect()->route('fixtures', [
-            'simulation' => $random,
+            'simulation' => $simulation->uid,
         ]);
     }
 }

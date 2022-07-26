@@ -26,23 +26,6 @@ __webpack_require__.r(__webpack_exports__);
     var expose = _ref.expose;
     expose();
     var props = __props;
-    var teams = [{
-      name: 'Liverpool',
-      handle: 'liverpool',
-      imageUrl: 'https://resources.premierleague.com/premierleague/badges/25/t14.png'
-    }, {
-      name: 'Manchester City',
-      handle: 'manchester-city',
-      imageUrl: 'https://resources.premierleague.com/premierleague/badges/25/t43.png'
-    }, {
-      name: 'Chelsea',
-      handle: 'chelsea',
-      imageUrl: 'https://resources.premierleague.com/premierleague/badges/25/t8.png'
-    }, {
-      name: 'Arsenal',
-      handle: 'arsenal',
-      imageUrl: 'https://resources.premierleague.com/premierleague/badges/25/t3.png'
-    }];
     var form = (0,_inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.useForm)();
 
     var submit = function submit() {
@@ -50,7 +33,6 @@ __webpack_require__.r(__webpack_exports__);
     };
 
     var __returned__ = {
-      teams: teams,
       form: form,
       submit: submit,
       props: props,
@@ -225,8 +207,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
     /* STABLE */
 
-  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_5, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.teams, function (team) {
-    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_5, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.teams, function (team) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", {
       key: team.handle,
       "class": "py-4"
     }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["TeamName"], {
@@ -234,15 +216,15 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }, null, 8
     /* PROPS */
     , ["team"])]);
-  }), 64
-  /* STABLE_FRAGMENT */
+  }), 128
+  /* KEYED_FRAGMENT */
   ))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
     onSubmit: _cache[0] || (_cache[0] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
       return $setup.submit && $setup.submit.apply($setup, arguments);
     }, ["prevent"]))
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Button"], {
     color: "blue",
-    key: "blue",
+    key: "generateFixture",
     type: "submit",
     isLoading: $setup.form.processing
   }, {
