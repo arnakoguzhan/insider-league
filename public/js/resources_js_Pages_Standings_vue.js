@@ -172,26 +172,9 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
-    teams: {
+    fixtures: {
       required: true,
-      type: Object,
-      "default": [{
-        name: 'Liverpool',
-        handle: 'liverpool',
-        imageUrl: 'https://resources.premierleague.com/premierleague/badges/25/t14.png'
-      }, {
-        name: 'Manchester City',
-        handle: 'manchester-city',
-        imageUrl: 'https://resources.premierleague.com/premierleague/badges/25/t43.png'
-      }, {
-        name: 'Chelsea',
-        handle: 'chelsea',
-        imageUrl: 'https://resources.premierleague.com/premierleague/badges/25/t8.png'
-      }, {
-        name: 'Arsenal',
-        handle: 'arsenal',
-        imageUrl: 'https://resources.premierleague.com/premierleague/badges/25/t3.png'
-      }]
+      type: Array
     }
   },
   components: {
@@ -502,74 +485,55 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
+  "class": "grid gap-y-6"
+};
+var _hoisted_2 = {
   "class": "bg-white border border-gray-200 rounded-lg p-5"
 };
-
-var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", {
-  "class": "text-lg leading-6 font-medium text-gray-900 mb-4"
-}, " Week 1 ", -1
-/* HOISTED */
-);
-
 var _hoisted_3 = {
-  "class": "grid grid-cols-5 gap-4"
+  "class": "text-lg leading-6 font-medium text-gray-900 mb-4"
 };
 var _hoisted_4 = {
-  "class": "col-span-2"
+  "class": "grid divide-y"
 };
-
-var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
-  "class": "text-center"
-}, "-", -1
-/* HOISTED */
-);
-
+var _hoisted_5 = {
+  "class": "grid grid-cols-5 py-2 first:pt-0 last:pb-0"
+};
 var _hoisted_6 = {
   "class": "col-span-2"
 };
 
-var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr", {
-  "class": "my-3"
-}, null, -1
-/* HOISTED */
-);
-
-var _hoisted_8 = {
-  "class": "grid grid-cols-5 gap-4"
-};
-var _hoisted_9 = {
-  "class": "col-span-2"
-};
-
-var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "text-center"
 }, "-", -1
 /* HOISTED */
 );
 
-var _hoisted_11 = {
+var _hoisted_8 = {
   "class": "col-span-2"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_TeamName = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("TeamName");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("dl", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TeamName, {
-    team: $props.teams[0]
-  }, null, 8
-  /* PROPS */
-  , ["team"])]), _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TeamName, {
-    team: $props.teams[1]
-  }, null, 8
-  /* PROPS */
-  , ["team"])])]), _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("dl", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TeamName, {
-    team: $props.teams[2]
-  }, null, 8
-  /* PROPS */
-  , ["team"])]), _hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TeamName, {
-    team: $props.teams[3]
-  }, null, 8
-  /* PROPS */
-  , ["team"])])])]);
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.fixtures, function (week, weekId) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", _hoisted_3, " Week " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(weekId), 1
+    /* TEXT */
+    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(week, function (fixture) {
+      return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("dl", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TeamName, {
+        team: fixture.host
+      }, null, 8
+      /* PROPS */
+      , ["team"])]), _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TeamName, {
+        team: fixture.guest
+      }, null, 8
+      /* PROPS */
+      , ["team"])])]);
+    }), 256
+    /* UNKEYED_FRAGMENT */
+    ))])]);
+  }), 256
+  /* UNKEYED_FRAGMENT */
+  ))]);
 }
 
 /***/ }),

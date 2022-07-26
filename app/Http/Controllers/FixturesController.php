@@ -2,23 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Resources\FixtureResource;
+use App\Models\Simulation;
 use Inertia\Inertia;
 
 class FixturesController extends Controller
 {
     /**
      * Show the fixtures for the given simulation.
+     * 
+     * @param  \App\Models\Simulation  $simulation
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index(Request $request)
+    public function index(Simulation $simulation)
     {
-        // Get fixture data from the database
-        $fixture = $request->simulation;
+        $fixtures = FixtureResource::collection($simulation->fixtures)->collection->groupBy('week');
+        $simulationUid = $simulation->uid;
 
-        return Inertia::render('Fixtures', [
-            'fixture' => $fixture,
-        ]);
+        return Inertia::render('Fixtures', compact('fixtures', 'simulationUid'));
     }
 }
