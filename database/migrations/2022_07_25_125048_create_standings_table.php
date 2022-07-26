@@ -22,7 +22,6 @@ class CreateStandingsTable extends Migration
             $table->integer('won')->default(0);
             $table->integer('lost')->default(0);
             $table->integer('draw')->default(0);
-            $table->integer('goal_difference')->default(0);
             $table->timestamps();
 
             $table->foreign('team_id')->references('id')->on('teams');

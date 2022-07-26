@@ -10,7 +10,7 @@
             Fixtures
         </h1>
 
-        <WeekFixture :fixtures="fixtures" />
+        <WeekFixture :fixtures="fixtures" :simulationUid="simulationUid" />
 
         <div class="mt-6">
             <Button :href="`/${simulationUid}/standings`" color="blue" key="blue">
@@ -25,7 +25,7 @@ import Button from "../Shared/Button";
 import WeekFixture from "../Shared/WeekFixture";
 
 let props = defineProps({
-    fixtures: Array,
+    fixtures: Object,
     simulationUid: String,
 });
 </script>

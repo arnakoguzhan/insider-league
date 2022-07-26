@@ -26,7 +26,6 @@ class Standing extends Model
         'won',
         'lost',
         'draw',
-        'goal_difference',
     ];
 
     /**
@@ -50,6 +49,19 @@ class Standing extends Model
     public function team(): BelongsTo
     {
         return $this->belongsTo(Team::class);
+    }
+
+    /**
+     * Get goal_difference attribute
+     * 
+     * @return int
+     */
+    public function getGoalDifferenceAttribute(): int
+    {
+        $hostedFixtures = $this->simulation->fixtures()->where('host_fc_id', $this->team_id)->whereNotNull('played_at')->get();
+        $guestedFixtures = $this->simulation->fixtures()->where('guest_fc_id', $this->team_id)->whereNotNull('played_at')->get();
+
+        return ($hostedFixtures->sum('host_fc_goals') + $guestedFixtures->sum('guest_fc_goals')) - ($hostedFixtures->sum('guest_fc_goals') + $guestedFixtures->sum('host_fc_goals'));
     }
 
     /**

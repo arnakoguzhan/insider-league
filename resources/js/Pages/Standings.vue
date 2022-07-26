@@ -36,7 +36,8 @@
         </div>
 
         <div class="col-span-1">
-            <WeekFixture :fixtures="nextFixture" title="Next week" />
+            <WeekFixture :fixtures="nextFixture" :simulationUid="simulationUid"
+                :title="`Next week (Week ${Object.keys(nextFixture)[0]})`" />
 
             <div v-show="nextFixture.length == 0" class="grid gap-y-6">
                 <div class="bg-white border border-gray-200 rounded-lg p-5">
@@ -46,7 +47,7 @@
                 </div>
             </div>
 
-            <WeekFixture :fixtures="lastPlayedFixture" title="Last week" class="mt-4" />
+            <WeekFixture :fixtures="lastPlayedFixture" :simulationUid="simulationUid" title="Last week" class="mt-4" />
 
             <Button textColor="blue-600" class="justify-center" link key="seeFixture"
                 :href="`/${simulationUid}/fixtures`">
@@ -62,9 +63,9 @@ import WeekFixture from "../Shared/WeekFixture";
 import Standing from "../Shared/Standing";
 
 let props = defineProps({
-    standings: Array,
-    nextFixture: Array,
-    lastPlayedFixture: Array,
+    standings: Object,
+    nextFixture: Object,
+    lastPlayedFixture: Object,
     simulationUid: String
 });
 </script>

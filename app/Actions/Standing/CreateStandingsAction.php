@@ -22,7 +22,6 @@ class CreateStandingsAction
                 'won' => 0,
                 'lost' => 0,
                 'draw' => 0,
-                'goal_difference' => 0,
             ]);
         }
     }

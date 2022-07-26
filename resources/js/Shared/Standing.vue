@@ -71,7 +71,7 @@ export default {
     props: {
         standings: {
             required: true,
-            type: Array,
+            type: Object,
         }
     },
     components: {

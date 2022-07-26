@@ -31,7 +31,6 @@ class StandingFactory extends Factory
             'won' => $this->faker->numberBetween(0, 100),
             'lost' => $this->faker->numberBetween(0, 100),
             'draw' => $this->faker->numberBetween(0, 100),
-            'goal_difference' => $this->faker->numberBetween(0, 100),
         ];
     }
 }
