@@ -22,6 +22,7 @@ class StandingResource extends JsonResource
             'lost' => $this->lost,
             'draw' => $this->draw,
             'goal_difference' => $this->goal_difference,
+            'winChance' => $this->winChance,
         ];
     }
 }

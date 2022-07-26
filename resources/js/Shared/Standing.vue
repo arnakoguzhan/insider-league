@@ -48,7 +48,8 @@
                         {{ standing.goal_difference }}
                     </td>
                     <td class="p-4 whitespace-nowrap text-sm text-gray-500">
-                        %na
+                        <span v-show="standing.winChance == -1">%na</span>
+                        <span v-show="standing.winChance != -1">%{{ standing.winChance }}</span>
                     </td>
                 </tr>
             </tbody>

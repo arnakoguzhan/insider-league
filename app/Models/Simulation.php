@@ -70,6 +70,16 @@ class Simulation extends Model
     }
 
     /**
+     * Define Relation with Fixture Model
+     * 
+     * @return \Illuminate\Support\Collection
+     */
+    public function getUnplayedFixtures(): Collection
+    {
+        return $this->fixtures()->whereNotNull('played_at')->orderBy('week', 'desc')->get();
+    }
+
+    /**
      * Define Relation with Standing Model
      * 
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

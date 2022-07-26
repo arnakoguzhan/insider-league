@@ -445,13 +445,9 @@ var _hoisted_8 = {
 var _hoisted_9 = {
   "class": "p-4 whitespace-nowrap text-sm text-gray-500"
 };
-
-var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", {
+var _hoisted_10 = {
   "class": "p-4 whitespace-nowrap text-sm text-gray-500"
-}, " %na ", -1
-/* HOISTED */
-);
-
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_TeamName = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("TeamName");
 
@@ -473,7 +469,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     /* TEXT */
     ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(standing.goal_difference), 1
     /* TEXT */
-    ), _hoisted_10], 2
+    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "%na", 512
+    /* NEED_PATCH */
+    ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, standing.winChance == -1]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "%" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(standing.winChance), 513
+    /* TEXT, NEED_PATCH */
+    ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, standing.winChance != -1]])])], 2
     /* CLASS */
     );
   }), 128
