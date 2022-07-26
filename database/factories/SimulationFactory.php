@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Actions\Fixture\GenerateNewFixtureAction;
+use App\Actions\Standing\CreateStandingsAction;
 use App\Models\Simulation;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -24,5 +26,21 @@ class SimulationFactory extends Factory
         return [
             'uid' => $this->faker->unique()->uuid,
         ];
+    }
+
+    /**
+     * Configure the model factory.
+     *
+     * @return $this
+     */
+    public function configure()
+    {
+        return $this->afterCreating(function (Simulation $simulation) {
+            // Generate the fixtures.
+            GenerateNewFixtureAction::run($simulation);
+
+            // Create standings for the simulation
+            CreateStandingsAction::run($simulation);
+        });
     }
 }
