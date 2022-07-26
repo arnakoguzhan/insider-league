@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Inertia\Inertia;
-use App\Actions\Fixture\GenerateNewFixtureAction;
 use App\Actions\Simulation\CreateNewSimulation;
 use App\Models\Team;
 
@@ -16,23 +15,21 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // Get all teams
         $teams = Team::all();
 
         return Inertia::render('Home', compact('teams'));
     }
 
     /**
-     * Show the application's landing page.
+     * Create a new simulation, fixtures and standings.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function generateFixtures()
+    public function generateSimulation()
     {
         // Create a new simulation.
         $simulation = CreateNewSimulation::run();
-
-        // Generate the fixtures.
-        GenerateNewFixtureAction::run($simulation);
 
         return redirect()->route('fixtures', $simulation->uid);
     }

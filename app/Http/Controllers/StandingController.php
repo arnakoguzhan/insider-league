@@ -17,14 +17,16 @@ class StandingController extends Controller
      */
     public function index(Simulation $simulation)
     {
-        // Get standing data from the database
+        // Fill standing's with win chance attribute
         $standings = FillWinChanceAttributeAction::run($simulation, $simulation->standings);
+
+        // Generate the fixtures response after the winChance attributes are filled
         $standings = StandingResource::collection($standings);
 
         // Get the next fixture for the simulation
         $nextFixture = FixtureResource::collection($simulation->nextFixture())->collection->groupBy('week');
 
-        // Get the last fixture for the simulation
+        // Get the last played fixture if available for the simulation
         $lastPlayedFixture = FixtureResource::collection($simulation->lastPlayedFixture())->collection->groupBy('week');
 
         // Get the simulation uid for the view

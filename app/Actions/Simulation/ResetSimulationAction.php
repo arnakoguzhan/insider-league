@@ -13,10 +13,10 @@ class ResetSimulationAction
 
     public function handle(Simulation $simulation)
     {
-        // Remove standings
+        // Remove old standings then create new
         $this->refreshStandings($simulation);
 
-        // Remove fixtures
+        // Remove old fixtures then create new
         $this->refreshFixtures($simulation);
     }
 

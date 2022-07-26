@@ -2,10 +2,7 @@
   <section class="p-6 bg-gray-200">
     <header class="max-w-5xl mx-auto">
       <div class="flex items-center justify-between">
-        <h1 class="font-bold text-lg">
-          Insider Champions League
-        </h1>
-
+        <Logo />
         <Link href="/">
         New simulation
         </Link>
@@ -19,3 +16,7 @@
     </div>
   </section>
 </template>
+
+<script setup>
+import Logo from './Logo.vue';
+</script>

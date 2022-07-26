@@ -12,10 +12,10 @@ class UpdateFixtureAction
 
     public function handle(Fixture $fixture, array $data)
     {
-        // Update fixture
+        // Update fixture data
         $fixture->update($data);
 
-        // Update host standing
+        // Update host fc standing
         $hostStanding = Standing::bySimulation($fixture->simulation_id)->byTeam($fixture->host_fc_id)->first();
         $hostStanding->update([
             'played' => $hostStanding->played + 1,
@@ -26,7 +26,7 @@ class UpdateFixtureAction
             'points' => $hostStanding->points + ($fixture->host_fc_goals > $fixture->guest_fc_goals ? 3 : ($fixture->host_fc_goals == $fixture->guest_fc_goals ? 1 : 0)),
         ]);
 
-        // Update guest standing
+        // Update guest fc standing
         $guestStanding = Standing::bySimulation($fixture->simulation_id)->byTeam($fixture->guest_fc_id)->first();
         $guestStanding->update([
             'played' => $guestStanding->played + 1,

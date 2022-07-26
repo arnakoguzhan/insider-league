@@ -2,8 +2,22 @@
 
 namespace App\Services;
 
+/**
+ * PredictionService using Poisson Distribution
+ * 
+ * Inspired from: https://dashee87.github.io/football/python/predicting-football-results-with-statistical-modelling/
+ * 
+ * Attack, Defense, Midfield stats from: https://www.fifaindex.com/teams/fifa21/
+ */
 class PredictionService
 {
+    /**
+     * Calculate the factorial of a number
+     * 
+     * @param int $number
+     * 
+     * @return int
+     */
     public function factorial($n)
     {
         if ($n == 0) return 1;
@@ -11,18 +25,36 @@ class PredictionService
         return $n * $this->factorial($n - 1);
     }
 
-    public function gameOutcome($homeGoals, $awayGoals)
+    /**
+     * Get the winner of game
+     * 
+     * @param int $hostGoals
+     * @param int $guestGoals
+     * 
+     * @return string
+     */
+    public function gameOutcome($hostGoals, $guestGoals)
     {
-        if ($homeGoals > $awayGoals) {
-            return 'HOME';
-        } elseif ($homeGoals < $awayGoals) {
-            return 'AWAY';
+        if ($hostGoals > $guestGoals) {
+            return 'HOST';
+        } elseif ($hostGoals < $guestGoals) {
+            return 'GUEST';
         } else {
             return 'DRAW';
         }
     }
 
-    public function computeLambdas($homeTeam, $awayTeam)
+    /**
+     * Calculate the lambdas for each team
+     * 
+     * Lambdas will be calculates based on attack, defense and midfield stats of each team
+     * 
+     * @param \App\Models\Team $hostTeam
+     * @param \App\Models\Team $guestTeam
+     * 
+     * @return float
+     */
+    public function computeLambdas($hostTeam, $guestTeam)
     {
         $m = [
             'intercept' => 0.113983,
@@ -32,16 +64,32 @@ class PredictionService
         ];
 
         return [
-            'home' => exp($m['intercept'] + $m['is_home'] * 1 + $m['AvD'] * ($homeTeam->attackRating - $awayTeam->defenceRating) + $m['MvM'] * ($homeTeam->midfieldRating - $awayTeam->midfieldRating)),
-            'away' => exp($m['intercept'] + $m['is_home'] * 0 + $m['AvD'] * ($awayTeam->attackRating - $homeTeam->defenceRating) + $m['MvM'] * ($awayTeam->midfieldRating - $homeTeam->midfieldRating)),
+            'host' => exp($m['intercept'] + $m['is_home'] * 1 + $m['AvD'] * ($hostTeam->attackRating - $guestTeam->defenceRating) + $m['MvM'] * ($hostTeam->midfieldRating - $guestTeam->midfieldRating)),
+            'guest' => exp($m['intercept'] + $m['is_home'] * 0 + $m['AvD'] * ($guestTeam->attackRating - $hostTeam->defenceRating) + $m['MvM'] * ($guestTeam->midfieldRating - $hostTeam->midfieldRating)),
         ];
     }
 
+    /**
+     * Poisson Distribution PDF
+     * 
+     * @param int $N
+     * @param float $lambda
+     * 
+     * @return mixed
+     */
     public function poissonPDF($N, $lambda)
     {
         return (pow($lambda, $N) * exp(-$lambda)) / $this->factorial($N);
     }
 
+    /**
+     * Poisson Distribution CDF
+     * 
+     * @param int $N
+     * @param float $lambda
+     * 
+     * @return mixed
+     */
     public function poissonCDF($N, $lambda)
     {
         $probs = [];
@@ -53,31 +101,14 @@ class PredictionService
         });
     }
 
-    public function weightedRandom($probabilities)
-    {
-        $rand = mt_rand() / mt_getrandmax();
-        $sum = 0;
-        foreach ($probabilities as $key => $probability) {
-            $sum += $probability;
-            if ($rand <= $sum) {
-                return $key;
-            }
-        }
-    }
-
     /**
-     * getRandomWeightedElement()
      * Utility function for getting random values with weighting.
-     * Pass in an associative array, such as array('A'=>5, 'B'=>45, 'C'=>50)
-     * An array like this means that "A" has a 5% chance of being selected, "B" 45%, and "C" 50%.
-     * The return value is the array key, A, B, or C in this case.  Note that the values assigned
-     * do not have to be percentages.  The values are simply relative to each other.  If one value
-     * weight was 2, and the other weight of 1, the value with the weight of 2 has about a 66%
-     * chance of being selected.  Also note that weights should be integers.
      * 
-     * @author https://github.com/irazasyed
+     * Based on https://gist.github.com/irazasyed/f41f8688a2b3b8f7b6df
      * 
      * @param array $weightedValues
+     * 
+     * @return mixed
      */
     function getRandomWeightedElement(array $weightedValues)
     {
@@ -99,19 +130,27 @@ class PredictionService
         }
     }
 
-    public function predictScores($homeTeam, $awayTeam)
+    /**
+     * Predict the goals of a game
+     * 
+     * @param \App\Models\Team $hostTeam
+     * @param \App\Models\Team $guestTeam
+     * 
+     * @return array
+     */
+    public function predictScores($hostTeam, $guestTeam)
     {
-        $lambda = $this->computeLambdas($homeTeam, $awayTeam);
+        $lambda = $this->computeLambdas($hostTeam, $guestTeam);
         $scores = [];
 
         // HOME, AWAY 0-4 goals
         for ($i = 0; $i < 5; $i++) {
             for ($j = 0; $j < 5; $j++) {
                 array_push($scores, [
-                    'home' => $i,
-                    'away' => $j,
+                    'host' => $i,
+                    'guest' => $j,
                     'result' => $this->gameOutcome($i, $j),
-                    'probability' => $this->poissonPDF($i, $lambda['home']) * $this->poissonPDF($j, $lambda['away'])
+                    'probability' => $this->poissonPDF($i, $lambda['host']) * $this->poissonPDF($j, $lambda['guest'])
                 ]);
             }
         }
@@ -119,52 +158,56 @@ class PredictionService
         // HOME with AWAY = 5+
         for ($i = 0; $i < 5; $i++) {
             array_push($scores, [
-                'home' => $i,
-                'away' => '5+',
-                'result' => 'AWAY',
-                'probability' => $this->poissonPDF($i, $lambda['home']) * (1 - $this->poissonCDF(4, $lambda['away']))
+                'host' => $i,
+                'guest' => '5+',
+                'result' => 'GUEST',
+                'probability' => $this->poissonPDF($i, $lambda['host']) * (1 - $this->poissonCDF(4, $lambda['guest']))
             ]);
         }
 
         // AWAY with HOME = 5+
         for ($i = 0; $i < 5; $i++) {
             array_push($scores, [
-                'home' => '5+',
-                'away' => $i,
-                'result' => 'HOME',
-                'probability' => $this->poissonPDF($i, $lambda['away']) * (1 - $this->poissonCDF(4, $lambda['home']))
+                'host' => '5+',
+                'guest' => $i,
+                'result' => 'HOST',
+                'probability' => $this->poissonPDF($i, $lambda['guest']) * (1 - $this->poissonCDF(4, $lambda['host']))
             ]);
         }
 
+        // HOME with AWAY = 5+
         array_push($scores, [
-            'home' => '5+',
-            'away' => '5+',
+            'host' => '5+',
+            'guest' => '5+',
             'result' => 'DRAW',
-            'probability' => (1 - $this->poissonCDF($i, $lambda['home'])) * (1 - $this->poissonCDF(4, $lambda['away']))
+            'probability' => (1 - $this->poissonCDF($i, $lambda['host'])) * (1 - $this->poissonCDF(4, $lambda['guest']))
         ]);
 
-        $resultHome = array_reduce(array_filter($scores, function ($score) {
-            return $score['result'] == 'HOME';
+        // Get the probability for host team to win
+        $resultHost = array_reduce(array_filter($scores, function ($score) {
+            return $score['result'] == 'HOST';
         }), function ($acc, $value) {
             return $acc + $value['probability'];
         }, 0);
 
-        $resultAway = array_reduce(array_filter($scores, function ($score) {
-            return $score['result'] == 'AWAY';
+        // Get the probability for guest team to win
+        $resultGuest = array_reduce(array_filter($scores, function ($score) {
+            return $score['result'] == 'GUEST';
         }), function ($acc, $value) {
             return $acc + $value['probability'];
         }, 0);
 
+        // Get the probability for draw
         $resultDraw = array_reduce(array_filter($scores, function ($score) {
             return $score['result'] == 'DRAW';
         }), function ($acc, $value) {
             return $acc + $value['probability'];
         }, 0);
 
-        // Randomly select a winner based on the probabilities
+        // Randomly select a winner based on the probabilities weigths
         $winner = $this->getRandomWeightedElement([
-            'HOME' => intval($resultHome * 100),
-            'AWAY' => intval($resultAway * 100),
+            'HOST' => intval($resultHost * 100),
+            'GUEST' => intval($resultGuest * 100),
             'DRAW' => intval($resultDraw * 100),
         ]);
 
@@ -172,10 +215,11 @@ class PredictionService
         $hostGoals = rand(1, 10);
         $guestGoals = $hostGoals;
 
-        // Update goals for each team by winner
-        if ($winner == 'HOME') {
+        // Update goals for each team by winner if it is not a draw
+        // TODO: Make sure that the goals are more than 0
+        if ($winner == 'HOST') {
             $guestGoals -= rand(1, $hostGoals);
-        } else if ($winner == 'AWAY') {
+        } else if ($winner == 'GUEST') {
             $hostGoals -= rand(1, $guestGoals);
         }
 

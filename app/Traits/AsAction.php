@@ -4,6 +4,9 @@ namespace App\Traits;
 
 use Illuminate\Support\Fluent;
 
+/**
+ * Helper trait to run actions without inject them into the controller's method
+ */
 trait AsAction
 {
     /**

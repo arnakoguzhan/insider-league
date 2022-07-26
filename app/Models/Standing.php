@@ -36,6 +36,7 @@ class Standing extends Model
      */
     protected static function booted()
     {
+        // Always order standings by points descending
         static::addGlobalScope('order', function (Builder $builder) {
             $builder->orderBy('points', 'desc');
         });

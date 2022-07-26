@@ -34,7 +34,7 @@ import TeamName from "../Shared/TeamName";
 
 let form = useForm();
 let submit = () => {
-    form.post('/generate-fixtures');
+    form.post('/generate-simulation');
 };
 
 let props = defineProps({

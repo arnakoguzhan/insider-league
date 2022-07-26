@@ -12,7 +12,7 @@ class CreateStandingsAction
 
     public function handle(Simulation $simulation)
     {
-        // Create standings for the simulation
+        // Create fresh & empty standings for the simulation
         $teams = Team::all();
         foreach ($teams as $team) {
             $simulation->standings()->create([

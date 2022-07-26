@@ -17,7 +17,10 @@ class FixturesController extends Controller
      */
     public function index(Simulation $simulation)
     {
+        // Get all fixtures for the simulation
         $fixtures = FixtureResource::collection($simulation->fixtures)->collection->groupBy('week');
+
+        // Get the simulation uid for the view
         $simulationUid = $simulation->uid;
 
         return Inertia::render('Fixtures', compact('fixtures', 'simulationUid'));

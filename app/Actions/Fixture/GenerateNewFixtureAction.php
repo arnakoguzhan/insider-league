@@ -17,7 +17,7 @@ class GenerateNewFixtureAction
         // Fetch teams from database
         $teams = Team::pluck('id')->toArray();
 
-        // Generate fixture
+        // Generate round-robin fixture
         $schedule = FixtureService::addTeams($teams)->schedule();
 
         // Save fixtures to database

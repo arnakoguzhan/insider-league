@@ -21,7 +21,7 @@ class FillWinChanceAttributeAction
         // Get unplayed fixtures
         $unplayedFixtures = $simulation->getUnplayedFixtures();
 
-        // Sum of the chance
+        // Sum of the chances for all teams
         $sumChance = 0;
 
         // Iterate through all standings and fill win chance attribute
@@ -42,47 +42,52 @@ class FillWinChanceAttributeAction
                 continue;
             }
 
-            // Calculate change
-            $changeToWin = 0;
+            // Improve the chance by being host or guest for unplayed fixtures
+            $chanceToWin = 0;
             foreach ($unplayedFixtures as $fixture) {
                 // If the current team is the home team of the fixture
                 // increase change by 2
                 if ($fixture->host_fc_id == $standing->team->id) {
-                    $changeToWin += 2;
+                    $chanceToWin += 2;
                 }
 
                 // If the current team is the guest team of the fixture
                 // increase change by 1
                 if ($fixture->guest_fc_id == $standing->team->id) {
-                    $changeToWin += 1;
+                    $chanceToWin += 1;
                 }
             }
 
-            $chanceWithCurrentPosition = $changeToWin - ($currentPosition / 2);
-            $chanceWithPointsDifference = $chanceWithCurrentPosition - (($firstTeamStanding->points - $standing->points) / 2);
+            // Improve the chance by current standing position
+            $chanceToWin = ($chanceToWin - ($currentPosition / 2)) - (($firstTeamStanding->points - $standing->points) / 2);
 
-            if ($chanceWithPointsDifference > 0) {
-                $standing->winChance = $chanceWithPointsDifference;
-                $sumChance += $chanceWithPointsDifference;
+            // Set the win chance attribute
+            if ($chanceToWin > 0) {
+                $standing->winChance = $chanceToWin;
+                $sumChance += $chanceToWin;
                 continue;
             }
 
+            // Set the win chance attribute
             if ($currentPosition == 1 && empty($unplayedFixtures)) {
-                $standing->winChance = abs($chanceWithPointsDifference);
-                $sumChance += abs($chanceWithPointsDifference);
+                $standing->winChance = abs($chanceToWin);
+                $sumChance += abs($chanceToWin);
                 continue;
             }
         }
 
+        // Get a value (weight) for each point
         // Division by zero check
         $onePointPercentValue = 100 / ($sumChance ?: 0.1);
 
+        // Iterate through all standings and fill win chance attribute again but as a percentage
         foreach ($standings as $standing) {
             if ($standing->winChance != -1 && $standing->winChance != 0) {
                 $standing->winChance = round($standing->winChance * $onePointPercentValue,  2);
             }
         }
 
+        // Return the standings with filled winChance attributes
         return $standings;
     }
 }

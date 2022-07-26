@@ -28,7 +28,7 @@ class HomepageTest extends TestCase
      */
     public function test_homepage_generate_fixture()
     {
-        $response = $this->post('/generate-fixtures');
+        $response = $this->post('/generate-simulation');
 
         $response->assertRedirectContains('/fixtures');
     }

@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::post('/generate-fixtures', [HomeController::class, 'generateFixtures'])->name('generateFixtures');
+Route::post('/generate-simulation', [HomeController::class, 'generateSimulation'])->name('generateSimulation');
 Route::get('/{simulation}/fixtures', [FixturesController::class, 'index'])->name('fixtures');
 Route::get('/{simulation}/standings', [StandingController::class, 'index'])->name('standings');
 Route::post('/{simulation}/play-week', [SimulationController::class, 'playWeek'])->name('simulation.playWeek');

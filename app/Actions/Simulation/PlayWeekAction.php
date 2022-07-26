@@ -14,7 +14,7 @@ class PlayWeekAction
 
     public function handle($fixtures)
     {
-        // Check if the fixture is a collection
+        // Check if the fixture is a collection, then iterate over it
         if ($fixtures instanceof Collection) {
             // Play the next week
             $fixtures->each(function (Fixture $fixture) {
@@ -27,7 +27,7 @@ class PlayWeekAction
     }
 
     /**
-     * Play the next week of the fixture.
+     * Play the week of the fixture.
      *
      * @param \App\Models\Fixture $fixture
      *
@@ -35,7 +35,7 @@ class PlayWeekAction
      */
     protected function playWeek(Fixture $fixture)
     {
-        // Make sure the fixture is not played yet
+        // Make sure the fixture is not played already
         if (!$fixture->isPlayed()) {
             // New Prediction Service
             $predictionService = new PredictionService();

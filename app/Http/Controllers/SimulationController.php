@@ -42,7 +42,7 @@ class SimulationController extends Controller
             PlayWeekAction::run($fixture);
         }
 
-        return redirect()->route('standings', $simulation->uid);
+        return redirect()->route('fixtures', $simulation->uid);
     }
 
     /**

@@ -5,6 +5,9 @@ namespace App\Traits;
 use App\Models\Simulation;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * Helper trait to centralize the logic for models that belong to a simulation.
+ */
 trait BelongsToSimulation
 {
     /**

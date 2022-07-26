@@ -38,11 +38,22 @@ class Simulation extends Model
         // Create uid when creating model.
         static::creating(function ($item) {
             $uid = uniqid();
+            // Make sure the uid is unique.
             while (self::where('uid', '=', $uid)->count() > 0) {
                 $uid = uniqid();
             }
             $item->uid = $uid;
         });
+    }
+
+    /**
+     * Define Relation with Standing Model
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function standings(): HasMany
+    {
+        return $this->hasMany(Standing::class);
     }
 
     /**
@@ -56,17 +67,18 @@ class Simulation extends Model
     }
 
     /**
-     * Define Relation with Fixture Model
+     * Get the last played fixture for the simulation
      * 
      * @return \Illuminate\Support\Collection
      */
     public function lastPlayedFixture(): Collection
     {
+        // Get all fixtures (2) for the last played week
         return $this->fixtures()->whereNotNull('played_at')->orderBy('week', 'desc')->take(2)->get();
     }
 
     /**
-     * Define Relation with Fixture Model
+     * Get the next fixture for the simulation
      * 
      * @return \Illuminate\Support\Collection
      */
@@ -80,22 +92,12 @@ class Simulation extends Model
     }
 
     /**
-     * Define Relation with Fixture Model
+     * Get unplayed fixtures for the simulation
      * 
      * @return \Illuminate\Support\Collection
      */
     public function getUnplayedFixtures(): Collection
     {
         return $this->fixtures()->whereNotNull('played_at')->orderBy('week', 'desc')->get();
-    }
-
-    /**
-     * Define Relation with Standing Model
-     * 
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function standings(): HasMany
-    {
-        return $this->hasMany(Standing::class);
     }
 }
