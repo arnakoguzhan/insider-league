@@ -6,6 +6,7 @@ use App\Traits\BelongsToSimulation;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Builder;
 
 class Standing extends Model
 {
@@ -27,6 +28,18 @@ class Standing extends Model
         'draw',
         'goal_difference',
     ];
+
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::addGlobalScope('order', function (Builder $builder) {
+            $builder->orderBy('points');
+        });
+    }
 
     /**
      * Define Relation with Team Model

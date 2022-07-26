@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 
 class Simulation extends Model
 {
@@ -57,11 +58,15 @@ class Simulation extends Model
     /**
      * Define Relation with Fixture Model
      * 
-     * @return \App\Models\Fixture
+     * @return \Illuminate\Support\Collection
      */
-    public function nextFixture(): Fixture
+    public function nextFixture(): Collection
     {
-        return $this->fixtures()->whereNull('played_at')->orderBy('week', 'desc')->first();
+        $lastPlayedFixture = $this->fixtures()->whereNotNull('played_at')->orderBy('week', 'desc')->first();
+
+        return $lastPlayedFixture
+            ? $this->fixtures()->whereWeek($lastPlayedFixture->week + 1)->get()
+            : $this->fixtures()->whereWeek(1)->get();
     }
 
     /**
