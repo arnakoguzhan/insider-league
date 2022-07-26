@@ -34,8 +34,6 @@ class HomeController extends Controller
         // Generate the fixtures.
         GenerateNewFixtureAction::run($simulation);
 
-        return redirect()->route('fixtures', [
-            'simulation' => $simulation->uid,
-        ]);
+        return redirect()->route('fixtures', $simulation->uid);
     }
 }

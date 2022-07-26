@@ -21,7 +21,8 @@ __webpack_require__.r(__webpack_exports__);
   name: 'Standings',
   props: {
     standings: Array,
-    nextFixture: Array
+    nextFixture: Array,
+    simulationUid: String
   },
   setup: function setup(__props, _ref) {
     var expose = _ref.expose;
@@ -266,7 +267,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     color: "white",
     textColor: "gray-700",
     key: "playAll",
-    "class": "rounded-l-md rounded-r-none hover:bg-gray-100"
+    "class": "rounded-l-md rounded-r-none hover:bg-gray-100",
+    href: "/".concat($props.simulationUid, "/play-all"),
+    method: "post",
+    as: "button"
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [_hoisted_6];
@@ -274,11 +278,16 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
     /* STABLE */
 
-  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Button"], {
+  }, 8
+  /* PROPS */
+  , ["href"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Button"], {
     color: "white",
     textColor: "gray-700",
     key: "nextWeek",
-    "class": "border-r-0 border-l-0 rounded-r-none rounded-l-none hover:bg-gray-100"
+    "class": "border-r-0 border-l-0 rounded-r-none rounded-l-none hover:bg-gray-100",
+    href: "/".concat($props.simulationUid, "/play-week"),
+    method: "post",
+    as: "button"
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [_hoisted_7];
@@ -286,10 +295,15 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
     /* STABLE */
 
-  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Button"], {
+  }, 8
+  /* PROPS */
+  , ["href"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Button"], {
     color: "red",
     key: "reset",
-    "class": "rounded-l-none rounded-r-md"
+    "class": "rounded-l-none rounded-r-md",
+    href: "/".concat($props.simulationUid, "/reset"),
+    method: "delete",
+    as: "button"
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [_hoisted_8];
@@ -297,7 +311,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
     /* STABLE */
 
-  })])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Standing"], {
+  }, 8
+  /* PROPS */
+  , ["href"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Standing"], {
     standings: $props.standings
   }, null, 8
   /* PROPS */

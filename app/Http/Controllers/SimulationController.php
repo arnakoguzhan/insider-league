@@ -2,40 +2,61 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Simulation\PlayWeekAction;
+use App\Actions\Simulation\ResetSimulationAction;
+use App\Models\Simulation;
 use Illuminate\Http\Request;
 
 class SimulationController extends Controller
 {
     /**
-     * Show the standings for the given simulation.
+     * Play the next week of the simulation.
+     * 
+     * @param \App\Models\Simulation $simulation
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function playWeek(Request $request)
+    public function playWeek(Simulation $simulation)
     {
-        // Get standing data from the database
-        return view('simulation', compact('fixtures'));
+        // Get the next week's fixture for the simulation
+        $nextFixture = $simulation->nextFixture();
+
+        // Play the next week
+        PlayWeekAction::run($nextFixture);
+
+        return redirect()->route('standings', $simulation->uid);
     }
 
     /**
-     * Show the standings for the given simulation.
+     * Play the all weeks of the simulation.
+     * 
+     * @param \App\Models\Simulation $simulation
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function playAll(Request $request)
+    public function playAll(Simulation $simulation)
     {
-        // Get standing data from the database
-        return view('simulation', compact('fixtures'));
+        // Loop through all weeks
+        foreach ($simulation->fixtures as $fixture) {
+            // Play the fixture
+            PlayWeekAction::run($fixture);
+        }
+
+        return redirect()->route('standings', $simulation->uid);
     }
 
     /**
-     * Show the standings for the given simulation.
+     * Reset the simulation.
+     * 
+     * @param \App\Models\Simulation $simulation
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function reset(Request $request)
+    public function reset(Simulation $simulation)
     {
-        // Get standing data from the database
-        return view('simulation', compact('fixtures'));
+        // Reset the simulation
+        ResetSimulationAction::run($simulation);
+
+        return redirect()->route('standings', $simulation->uid);
     }
 }

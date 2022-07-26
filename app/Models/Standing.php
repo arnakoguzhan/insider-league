@@ -37,7 +37,7 @@ class Standing extends Model
     protected static function booted()
     {
         static::addGlobalScope('order', function (Builder $builder) {
-            $builder->orderBy('points');
+            $builder->orderBy('points', 'desc');
         });
     }
 
@@ -49,5 +49,18 @@ class Standing extends Model
     public function team(): BelongsTo
     {
         return $this->belongsTo(Team::class);
+    }
+
+    /**
+     * Scope a query to only include Standing of a given team.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder  $query
+     * @param int $team_id
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeByTeam($query, $team_id)
+    {
+        $query->where('team_id', $team_id);
     }
 }

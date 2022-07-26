@@ -12,16 +12,19 @@
 
         <span class="relative z-0 inline-flex shadow-sm rounded-md">
             <Button color="white" textColor="gray-700" key="playAll"
-                class="rounded-l-md rounded-r-none hover:bg-gray-100">
+                class="rounded-l-md rounded-r-none hover:bg-gray-100" :href="`/${simulationUid}/play-all`" method="post"
+                as="button">
                 Play all
             </Button>
 
             <Button color="white" textColor="gray-700" key="nextWeek"
-                class="border-r-0 border-l-0 rounded-r-none rounded-l-none hover:bg-gray-100">
+                class="border-r-0 border-l-0 rounded-r-none rounded-l-none hover:bg-gray-100"
+                :href="`/${simulationUid}/play-week`" method="post" as="button">
                 Next Week
             </Button>
 
-            <Button color="red" key="reset" class="rounded-l-none rounded-r-md">
+            <Button color="red" key="reset" class="rounded-l-none rounded-r-md" :href="`/${simulationUid}/reset`"
+                method="delete" as="button">
                 Reset
             </Button>
         </span>
@@ -46,5 +49,6 @@ import Standing from "../Shared/Standing";
 let props = defineProps({
     standings: Array,
     nextFixture: Array,
+    simulationUid: String
 });
 </script>

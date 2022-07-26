@@ -22,6 +22,8 @@ class StandingController extends Controller
         // Get the next fixture for the simulation
         $nextFixture = FixtureResource::collection($simulation->nextFixture())->collection->groupBy('week');
 
-        return Inertia::render('Standings', compact('standings', 'nextFixture'));
+        $simulationUid = $simulation->uid;
+
+        return Inertia::render('Standings', compact('standings', 'nextFixture', 'simulationUid'));
     }
 }
