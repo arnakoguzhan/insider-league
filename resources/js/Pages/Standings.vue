@@ -36,7 +36,22 @@
         </div>
 
         <div class="col-span-1">
-            <WeekFixture :fixtures="nextFixture" />
+            <WeekFixture :fixtures="nextFixture" title="Next week" />
+
+            <div v-show="nextFixture.length == 0" class="grid gap-y-6">
+                <div class="bg-white border border-gray-200 rounded-lg p-5">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">
+                        Simulation completed
+                    </h3>
+                </div>
+            </div>
+
+            <WeekFixture :fixtures="lastPlayedFixture" title="Last week" class="mt-4" />
+
+            <Button textColor="blue-600" class="justify-center" link key="seeFixture"
+                :href="`/${simulationUid}/fixtures`">
+                See all fixtures
+            </Button>
         </div>
     </div>
 </template>
@@ -49,6 +64,7 @@ import Standing from "../Shared/Standing";
 let props = defineProps({
     standings: Array,
     nextFixture: Array,
+    lastPlayedFixture: Array,
     simulationUid: String
 });
 </script>

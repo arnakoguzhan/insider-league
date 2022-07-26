@@ -60,9 +60,19 @@ class Simulation extends Model
      * 
      * @return \Illuminate\Support\Collection
      */
+    public function lastPlayedFixture(): Collection
+    {
+        return $this->fixtures()->whereNotNull('played_at')->orderBy('week', 'desc')->take(2)->get();
+    }
+
+    /**
+     * Define Relation with Fixture Model
+     * 
+     * @return \Illuminate\Support\Collection
+     */
     public function nextFixture(): Collection
     {
-        $lastPlayedFixture = $this->fixtures()->whereNotNull('played_at')->orderBy('week', 'desc')->first();
+        $lastPlayedFixture = $this->lastPlayedFixture()->first();
 
         return $lastPlayedFixture
             ? $this->fixtures()->whereWeek($lastPlayedFixture->week + 1)->get()

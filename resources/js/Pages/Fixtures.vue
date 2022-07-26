@@ -14,7 +14,7 @@
 
         <div class="mt-6">
             <Button :href="`/${simulationUid}/standings`" color="blue" key="blue">
-                Start Simulation
+                Check standings
             </Button>
         </div>
     </div>

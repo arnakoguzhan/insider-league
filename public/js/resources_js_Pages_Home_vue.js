@@ -94,6 +94,7 @@ __webpack_require__.r(__webpack_exports__);
 
     },
     outline: Boolean,
+    link: Boolean,
     isLoading: Boolean,
     icon: Boolean,
     round: Boolean
@@ -102,9 +103,17 @@ __webpack_require__.r(__webpack_exports__);
     colorClasses: function colorClasses() {
       var color = this.color;
       var textColor = this.textColor;
-      var baseClasses = "bg-".concat(color, "-600 text-").concat(textColor, " border-").concat(color, "-600 hover:bg-").concat(color, "-700 hover:border-").concat(color, "-700");
-      var outlineClasses = "border-".concat(color, "-600 bg-white text-").concat(color, "-600 hover:bg-").concat(color, "-600 hover:border-").concat(color, "-600 hover:text-white");
-      return this.outline ? outlineClasses : baseClasses;
+      var baseClasses = "border focus:outline-none bg-".concat(color, "-600 text-").concat(textColor, " border-").concat(color, "-600 hover:bg-").concat(color, "-700 hover:border-").concat(color, "-700");
+      var outlineClasses = "border focus:outline-none  border-".concat(color, "-600 bg-white text-").concat(color, "-600 hover:bg-").concat(color, "-600 hover:border-").concat(color, "-600 hover:text-white");
+      var linkClasses = "text-".concat(textColor, " hover:text-").concat(textColor, "-800");
+
+      if (this.outline) {
+        return outlineClasses;
+      } else if (this.link) {
+        return linkClasses;
+      } else {
+        return baseClasses;
+      }
     },
     sizeClasses: function sizeClasses() {
       var isIcon = this.icon;
@@ -286,7 +295,7 @@ var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 var _hoisted_4 = [_hoisted_2, _hoisted_3];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)((0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveDynamicComponent)($options.buttonType), (0,vue__WEBPACK_IMPORTED_MODULE_0__.mergeProps)({
-    "class": ["font-medium flex items-center cursor-pointer border focus:outline-none", $options.btnClasses],
+    "class": ["font-medium flex items-center cursor-pointer", $options.btnClasses],
     href: $props.href,
     type: $props.type
   }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toHandlers)(_ctx.$listeners)), {

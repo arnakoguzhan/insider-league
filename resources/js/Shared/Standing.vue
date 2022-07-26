@@ -48,11 +48,18 @@
                         {{ standing.goal_difference }}
                     </td>
                     <td class="p-4 whitespace-nowrap text-sm text-gray-500">
-                        <span v-show="standing.winChance == -1">%na</span>
+                        <span v-show="standing.winChance == -1">NA</span>
                         <span v-show="standing.winChance != -1">%{{ standing.winChance }}</span>
                     </td>
                 </tr>
             </tbody>
+            <tfoot class="bg-gray-200">
+                <tr>
+                    <th colspan="7" class="px-4 py-3 text-left text-xs font-medium text-gray-500">
+                        The estimations will be available after the 4th week, and will be updated each week.
+                    </th>
+                </tr>
+            </tfoot>
         </table>
     </div>
 </template>

@@ -84,6 +84,7 @@ __webpack_require__.r(__webpack_exports__);
 
     },
     outline: Boolean,
+    link: Boolean,
     isLoading: Boolean,
     icon: Boolean,
     round: Boolean
@@ -92,9 +93,17 @@ __webpack_require__.r(__webpack_exports__);
     colorClasses: function colorClasses() {
       var color = this.color;
       var textColor = this.textColor;
-      var baseClasses = "bg-".concat(color, "-600 text-").concat(textColor, " border-").concat(color, "-600 hover:bg-").concat(color, "-700 hover:border-").concat(color, "-700");
-      var outlineClasses = "border-".concat(color, "-600 bg-white text-").concat(color, "-600 hover:bg-").concat(color, "-600 hover:border-").concat(color, "-600 hover:text-white");
-      return this.outline ? outlineClasses : baseClasses;
+      var baseClasses = "border focus:outline-none bg-".concat(color, "-600 text-").concat(textColor, " border-").concat(color, "-600 hover:bg-").concat(color, "-700 hover:border-").concat(color, "-700");
+      var outlineClasses = "border focus:outline-none  border-".concat(color, "-600 bg-white text-").concat(color, "-600 hover:bg-").concat(color, "-600 hover:border-").concat(color, "-600 hover:text-white");
+      var linkClasses = "text-".concat(textColor, " hover:text-").concat(textColor, "-800");
+
+      if (this.outline) {
+        return outlineClasses;
+      } else if (this.link) {
+        return linkClasses;
+      } else {
+        return baseClasses;
+      }
     },
     sizeClasses: function sizeClasses() {
       var isIcon = this.icon;
@@ -157,6 +166,9 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
+    title: {
+      type: String
+    },
     fixtures: {
       required: true,
       type: Array
@@ -204,7 +216,7 @@ var _hoisted_4 = {
   "class": "mt-6"
 };
 
-var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Start Simulation ");
+var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Check standings ");
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Head = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Head");
@@ -281,7 +293,7 @@ var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 var _hoisted_4 = [_hoisted_2, _hoisted_3];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)((0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveDynamicComponent)($options.buttonType), (0,vue__WEBPACK_IMPORTED_MODULE_0__.mergeProps)({
-    "class": ["font-medium flex items-center cursor-pointer border focus:outline-none", $options.btnClasses],
+    "class": ["font-medium flex items-center cursor-pointer", $options.btnClasses],
     href: $props.href,
     type: $props.type
   }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toHandlers)(_ctx.$listeners)), {
@@ -372,28 +384,27 @@ var _hoisted_5 = {
 var _hoisted_6 = {
   "class": "col-span-2"
 };
-
-var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
-  "class": "text-center"
-}, "-", -1
-/* HOISTED */
-);
-
-var _hoisted_8 = {
+var _hoisted_7 = {
   "class": "col-span-2"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_TeamName = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("TeamName");
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.fixtures, function (week, weekId) {
-    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", _hoisted_3, " Week " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(weekId), 1
-    /* TEXT */
-    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(week, function (fixture) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.title), 513
+    /* TEXT, NEED_PATCH */
+    ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $props.title]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Week " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(weekId), 513
+    /* TEXT, NEED_PATCH */
+    ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, !$props.title]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(week, function (fixture) {
       return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("dl", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TeamName, {
         team: fixture.host
       }, null, 8
       /* PROPS */
-      , ["team"])]), _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TeamName, {
+      , ["team"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "-", 512
+      /* NEED_PATCH */
+      ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, !fixture.playedAt]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(fixture.hostGoals) + " - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(fixture.guestGoals), 513
+      /* TEXT, NEED_PATCH */
+      ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, fixture.playedAt]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TeamName, {
         team: fixture.guest
       }, null, 8
       /* PROPS */
