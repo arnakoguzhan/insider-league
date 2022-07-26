@@ -15,7 +15,7 @@ class CreateSimulationsTable extends Migration
     {
         Schema::create('simulations', function (Blueprint $table) {
             $table->id();
-            $table->uuid('uid')->unique();
+            $table->string('uid')->unique();
             $table->timestamps();
         });
     }
