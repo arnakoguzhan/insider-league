@@ -7,13 +7,16 @@ final league table.
 
 ## Installation
 
-- Install PHP dependencies via composer
+1- Install PHP dependencies via composer
 ```bash
     composer install
 ```
-- Install frontend dependencies via npm
+
+2- Update .env file with your database credentials
+
+3 - Run the database migrations and seeders
 ```bash
-    npm install
+    php artisan migrate --seed
 ```
 
 ## Running up the project
@@ -24,10 +27,15 @@ final league table.
 
 ## Development
 
-After chaning frontend files, you need to run `npm run dev`, or `npm run prod` to see the changes.
+- Install frontend dependencies via npm
+```bash
+    npm install
+```
+
+After editing any frontend file, you need to run `npm run dev`, or `npm run prod` to see the changes.
 
 ## Tests
 
 To run simple tests, just run `php artisan test`.
 
-- More test need to be added.
+- More tests need to be added.
