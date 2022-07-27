@@ -35,7 +35,7 @@ class SimulationTest extends TestCase
 
         $response = $this->post(route('simulation.playAll', $simulation->uid));
 
-        $response->assertRedirectContains('/standings');
+        $response->assertRedirectContains('/fixtures');
     }
 
     /**

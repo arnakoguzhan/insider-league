@@ -25,4 +25,3 @@ Route::get('/{simulation}/standings', [StandingController::class, 'index'])->nam
 Route::post('/{simulation}/play-week', [SimulationController::class, 'playWeek'])->name('simulation.playWeek');
 Route::post('/{simulation}/play-all', [SimulationController::class, 'playAll'])->name('simulation.playAll');
 Route::delete('/{simulation}/reset', [SimulationController::class, 'reset'])->name('simulation.reset');
-Route::post('/update-fixture', [SimulationController::class, 'reset'])->name('simulation.reset');
